@@ -3,10 +3,12 @@ import Menu from './components/menu/Menu.jsx'
 import ViewSnippets from './components/viewSnippets/ViewSnippets.jsx'
 import UploadForm from './components/upload/UploadForm.jsx'
 import './App.css'
+import { tab } from './constants.js'
 
 function App() {
-	const [count, setCount] = useState(0)
-	// Lägg till en state-variabel här, som avgör om ViewSnippets eller formuläret ska visas
+	const [selectedTab, setSelectedTab] = useState(tab.latest)
+
+	const showSnippets = (selectedTab === tab.latest) || (selectedTab === tab.upvotes)
 
 	return (
 		<div className="App">
@@ -14,11 +16,11 @@ function App() {
 				<h1> Code share </h1>
 			</header>
 			<main className="show-components">
-				<Menu />
+				<Menu selected={selectedTab} setSelected={setSelectedTab} />
 
-				<ViewSnippets />
+				{showSnippets && <ViewSnippets />}
 
-				<UploadForm />
+				{selectedTab === tab.upload && <UploadForm />}
 			</main>
 		</div>
 	)
