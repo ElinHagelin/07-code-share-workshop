@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
+// import { getLatestSnippets } from '../../utils/ajax'
 import './ViewSnippets.css'
 
 // 1. Skapa (tillfällig) data, utifrån det som API:et returnerar - en array med minst 1 objekt
@@ -16,16 +17,9 @@ const tempData = [
 	}
 ]
 
-const ViewSnippets = () => {
-	const [snippets, setSnippets] = useState(null)
 
-	useEffect(() => {
-		async function getLatestSnippets() {
-			// 1. skicka request till API:et (fråga efter latest snippets)
-			// 2. ta emot resultatet i JSON-format
-			// 3. spara i state-variabel
-		}
-	}, [])
+
+const ViewSnippets = ({ snippets }) => {
 
 	return (
 		<div className="component">
