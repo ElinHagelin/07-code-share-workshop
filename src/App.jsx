@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import Menu from './components/menu/Menu.jsx'
+import ViewSnippets from './components/viewSnippets/ViewSnippets.jsx'
 import './App.css'
 
 function App() {
@@ -12,70 +12,9 @@ function App() {
 				<h1> Code share </h1>
 			</header>
 			<main className="show-components">
-				<section className="menu component">
-					<button className="selected"> Latest </button>
-					<button> Best </button>
-					<button> Upload new </button>
-				</section>
-				<hr />
+				<Menu />
 
-				<div className="component">
-
-					<section className="framed">
-						<span className="intro">
-							The latest snippets from coders like you!
-						</span>
-					</section>
-
-					<section>
-						<div className="vote">
-							<code>let x=5;</code>
-							<div className="vote-buttons">
-								<button className="vote">🗑️</button>
-								<button className="vote">✍️</button>
-								<button className="vote">👍</button>
-								<button className="vote">👎</button>
-								<span className="score">5</span>
-							</div>
-						</div>
-
-						<div className="vote">
-							<textarea className="code" rows="4" value="let y = 8;" />
-							<div className="vote-buttons">
-								<button className="vote">✔️</button>
-								<button className="vote">❌</button>
-							</div>
-						</div>
-
-
-						<div className="vote">
-							<code>
-				// Get a button
-								let btn = document.querySelector('&amp;my-button')
-							</code>
-							<div className="vote-buttons">
-								<button className="vote">🗑️</button>
-								<button className="vote">✍️</button>
-								<button className="vote">👍</button>
-								<button className="vote">👎</button>
-								<span className="score">25</span>
-							</div>
-						</div>
-					</section>
-					<hr />
-				</div>
-
-
-				<div className="component">
-					<section className="framed">
-						<span className="intro">
-							The most upvoted snippets from the community!
-						</span>
-					</section>
-					(same design as "latest" tab)
-					<hr />
-				</div>
-
+				<ViewSnippets />
 
 				<div className="component">
 					<section className="framed">
