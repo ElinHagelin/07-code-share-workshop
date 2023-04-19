@@ -2,6 +2,8 @@
 // import { getLatestSnippets } from '../../utils/ajax'
 import './ViewSnippets.css'
 
+// TODO: använd "title" fältet också
+
 // 1. Skapa (tillfällig) data, utifrån det som API:et returnerar - en array med minst 1 objekt
 // 2. Använd map-funktionen för att rendera <div className="vote"> för varje objekt
 const tempData = [
