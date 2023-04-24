@@ -1,6 +1,7 @@
 // import { useState, useEffect } from 'react'
 // import { getLatestSnippets } from '../../utils/ajax'
 import './ViewSnippets.css'
+import CodeSnippet from './CodeSnippet.jsx'
 
 // TODO: använd "title" fältet också
 
@@ -36,22 +37,14 @@ const ViewSnippets = ({ snippets }) => {
 				{snippets === null
 					? <p> Please wait, retrieving data... </p>
 					: snippets.map(snippet => (
-					<div key={snippet.id} className="vote">
-						<code> {snippet.content} </code>
-						<div className="vote-buttons">
-							<button className="vote">🗑️</button>
-							<button className="vote">✍️</button>
-							<button className="vote">👍</button>
-							<button className="vote">👎</button>
-							<span className="score"> {snippet.score} </span>
-						</div>
-					</div>
-				))}
-				</section>
+						<CodeSnippet key={snippet.id} snippet={snippet} />
+						))}
+			</section>
 			<hr />
 		</div>
 	)
 }
+
 
 export default ViewSnippets
 
