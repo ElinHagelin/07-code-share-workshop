@@ -1,7 +1,11 @@
-// import { useState, useEffect } from 'react'
+import { useState } from 'react'
 // import { getLatestSnippets } from '../../utils/ajax'
 import './ViewSnippets.css'
 import CodeSnippet from './CodeSnippet.jsx'
+import { useRecoilState } from 'recoil'
+import snippetState from '../../atoms/snippets.js'
+import bestSnippetState from '../../atoms/bestSnippets.js'
+import { tab } from '../../constants.js'
 
 // TODO: använd "title" fältet också
 
@@ -22,7 +26,9 @@ const tempData = [
 
 
 
-const ViewSnippets = ({ snippets }) => {
+const ViewSnippets = (selected) => {
+	const [snippets, setSnippets] = useRecoilState(snippetState)
+	const [bestSnippets, setBestSnippets] = useRecoilState(bestSnippetState)
 
 	return (
 		<div className="component">
@@ -36,9 +42,14 @@ const ViewSnippets = ({ snippets }) => {
 			<section>
 				{snippets === null
 					? <p> Please wait, retrieving data... </p>
-					: snippets.map(snippet => (
-						<CodeSnippet key={snippet.id} snippet={snippet} />
-						))}
+					: selected == tab.latest ?
+						snippets.map(snippet => (
+							<CodeSnippet key={snippet.id} snippet={snippet} />
+						)) :
+						bestSnippets.map(snippet => (
+							<CodeSnippet key={snippet.id} snippet={snippet} />
+						))
+				}
 			</section>
 			<hr />
 		</div>
