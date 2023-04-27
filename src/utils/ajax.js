@@ -4,8 +4,8 @@ import bestSnippetState from '../atoms/bestSnippets.js'
 
 
 
-async function GetLatestSnippets() {
-	const [snippets, setSnippets] = useRecoilState(snippetState)
+async function getLatestSnippets(setSnippets) {
+	// const [snippets, setSnippets] = useRecoilState(snippetState)
 	// 1. skicka request till API:et (fråga efter latest snippets)
 	// 2. ta emot resultatet i JSON-format
 	// 3. spara i state-variabel
@@ -17,8 +17,8 @@ async function GetLatestSnippets() {
 	setSnippets(data)
 }
 
-async function GetBestSnippets() {
-	const [bestSnippets, setBestSnippets] = useRecoilState(bestSnippetState)
+async function getBestSnippets(setBestSnippets) {
+	// const [bestSnippets, setBestSnippets] = useRecoilState(bestSnippetState)
 	// 1. skicka request till API:et (fråga efter latest snippets)
 	// 2. ta emot resultatet i JSON-format
 	// 3. spara i state-variabel
@@ -107,4 +107,4 @@ async function Vote({ snippet, setSnippets, setBestSnippets, type }) {
 }
 
 
-export { GetLatestSnippets, uploadSnippet, GetBestSnippets, Vote, deleteSnippet }
+export { getLatestSnippets, uploadSnippet, getBestSnippets, Vote, deleteSnippet }

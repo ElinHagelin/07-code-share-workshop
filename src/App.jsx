@@ -5,13 +5,14 @@ import ViewSnippets from './components/viewSnippets/ViewSnippets.jsx'
 import UploadForm from './components/upload/UploadForm.jsx'
 import './App.css'
 import { tab } from './constants.js'
-import { GetLatestSnippets, GetBestSnippets } from './utils/ajax'
+import { getLatestSnippets, getBestSnippets } from './utils/ajax'
 import snippetState from './atoms/snippets.js'
 import bestSnippetState from './atoms/bestSnippets.js'
+import tabState from './atoms/selectedTab.js'
 
 function App() {
 	// State variables
-	const [selectedTab, setSelectedTab] = useState(tab.latest)
+	const [selectedTab, setSelectedTab] = useRecoilState(tabState)
 	const [snippets, setSnippets] = useRecoilState(snippetState)
 	const [bestSnippets, setBestSnippets] = useRecoilState(bestSnippetState)
 
@@ -22,22 +23,18 @@ function App() {
 
 	// useEffect
 	useEffect(() => {
-		<>
-			<GetLatestSnippets />
-			<GetBestSnippets />
-		</>
+		getLatestSnippets(setSnippets)
+		getBestSnippets(setBestSnippets)
+
 		// const interval = setInterval(() => {
-		// 	getLatestSnippets(setSnippets)
-		// 	getBestSnippets(setBestSnippets)
+		// getLatestSnippets(setSnippets)
+		// getBestSnippets(setBestSnippets)
 		// }, 10000);
 		// return () => clearInterval(interval);
 
 		// VG-version: vänta 1 minut och hämta sedan snippets igen (uppdatera datan innan den blir för gammal)
-	}, [])
+	}, [selectedTab])
 
-
-	// Local variables
-	// const showSnippets = (selectedTab === tab.latest) || (selectedTab === tab.upvotes)
 
 	return (
 		<div className="App">
@@ -45,9 +42,9 @@ function App() {
 				<h1> Code share </h1>
 			</header>
 			<main className="show-components">
-				<Menu selected={selectedTab} setSelected={setSelectedTab} />
+				<Menu />
 
-				{latestSnippets || mostUpvotedSnippets && <ViewSnippets selected={selectedTab} />}
+				{latestSnippets || mostUpvotedSnippets ? <ViewSnippets /> : null}
 
 				{uploadSnippets && <UploadForm />}
 			</main>

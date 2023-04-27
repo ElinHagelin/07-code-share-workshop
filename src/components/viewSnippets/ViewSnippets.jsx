@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 // import { getLatestSnippets } from '../../utils/ajax'
 import './ViewSnippets.css'
 import CodeSnippet from './CodeSnippet.jsx'
@@ -6,6 +6,7 @@ import { useRecoilState } from 'recoil'
 import snippetState from '../../atoms/snippets.js'
 import bestSnippetState from '../../atoms/bestSnippets.js'
 import { tab } from '../../constants.js'
+import tabState from '../../atoms/selectedTab'
 
 // TODO: använd "title" fältet också
 
@@ -25,11 +26,22 @@ const tempData = [
 ]
 
 
+const ViewSnippets = () => {
+	const [selectedTab] = useRecoilState(tabState)
+	const [snippets] = useRecoilState(snippetState)
+	const [bestSnippets] = useRecoilState(bestSnippetState)
+	const [currentSnippets, setCurrentSnippets] = useState([]);
 
-const ViewSnippets = (selected) => {
-	const [snippets, setSnippets] = useRecoilState(snippetState)
-	const [bestSnippets, setBestSnippets] = useRecoilState(bestSnippetState)
-
+	console.log('snippets är: ', snippets);
+	console.log('bestSnippets är: ', bestSnippets);
+	useEffect(() => {
+		if (selectedTab === tab.latest) {
+			setCurrentSnippets(snippets)
+		} else if (selectedTab === tab.upvotes) {
+			setCurrentSnippets(bestSnippets);
+		}
+		console.log(currentSnippets);
+	}, [selectedTab])
 	return (
 		<div className="component">
 
@@ -40,16 +52,22 @@ const ViewSnippets = (selected) => {
 			</section>
 
 			<section>
-				{snippets === null
-					? <p> Please wait, retrieving data... </p>
-					: selected == tab.latest ?
+				{
+					currentSnippets && currentSnippets.map(snippet => (
+						<CodeSnippet key={snippet.id} snippet={snippet} />
+					))
+				}
+				{/* {snippets || bestSnippets
+					? selectedTab == tab.latest ?
 						snippets.map(snippet => (
 							<CodeSnippet key={snippet.id} snippet={snippet} />
 						)) :
 						bestSnippets.map(snippet => (
 							<CodeSnippet key={snippet.id} snippet={snippet} />
 						))
-				}
+					: <p> Please wait, retrieving data... </p>
+
+				} */}
 			</section>
 			<hr />
 		</div>
